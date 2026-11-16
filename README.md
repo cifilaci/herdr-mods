@@ -11,20 +11,26 @@ mods folder and Herdr runs it.
 
 Both are plain JavaScript for Herdr's mod API; there is nothing to compile.
 
+Each folder is a **recipe**: `RECIPE.md` is the brief another agent builds the
+mod from, and `preview.png` is a picture of it running. The mod itself lives in
+the folder's `mods/<name>/`. The recipe and the picture are not part of the mod —
+leave them out when you install it.
+
 ## Install
 
-Copy the folder you want into Herdr's mods folder:
+Copy the mod folder you want into Herdr's mods folder:
 
 - Linux, macOS: `~/.config/herdr-app/mods/`
 - Windows: `%USERPROFILE%\.config\herdr-app\mods\`
 
 ```sh
 git clone https://github.com/cifilaci/herdr-mods.git
-cp -r herdr-mods/agent-restore ~/.config/herdr-app/mods/
+cp -r herdr-mods/agent-restore/mods/agent-restore ~/.config/herdr-app/mods/
 ```
 
-Herdr picks the mod up on its next start. To check a mod before you trust it,
-load it once and let it render:
+Herdr rescans the mods folder on a timer, so the mod shows up within a few
+seconds — a restart is not needed. To check a mod before you trust it, load it
+once and let it render:
 
 ```sh
 herdr-app check ~/.config/herdr-app/mods/agent-restore
@@ -32,6 +38,13 @@ herdr-app check ~/.config/herdr-app/mods/agent-restore
 
 `check` writes `gpui-kit.d.ts` and `jsconfig.json` next to the mod — those are
 generated type stubs, not sources. Delete them if you do not want them.
+
+`claude-sessions` also needs a key. Its own [`keys.json`](claude-sessions/keys.json)
+holds it — merge it into your own `~/.config/herdr-app/keys.json`:
+
+```json
+{ "global": { "ctrl-shift-s": "mod.open:claude-sessions" } }
+```
 
 Herdr's own guide, written into `~/.config/herdr-app/AGENTS.md` on every start,
 documents the mod API these use.
@@ -108,7 +121,8 @@ A transcript runs to tens of megabytes, so it is never read whole: the listing
 is a shallow walk of the project folders, the history is read from its tail,
 and a session the history does not know costs one bounded head read.
 
-**How to open it.** Bind a key to it in `~/.config/herdr-app/keys.json`:
+**How to open it.** Bind the key in `claude-sessions/keys.json` to your own
+`keys.json`:
 
 ```json
 "ctrl-shift-s": "mod.open:claude-sessions"
@@ -129,6 +143,9 @@ project — the app they plug into — where they live under `defaults/mods/` an
 are covered by that project's own test suite. This repository holds the
 published copy, refreshed when a mod changes. The copies published here were
 taken at `6683be4` (agent-restore) and `f0fcac8` (claude-sessions).
+
+Each mod folder here is one **build of its recipe**: the files are what the
+recipe describes, and the recipe is the brief for another build of it.
 
 ## Licence
 
