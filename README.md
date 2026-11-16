@@ -125,14 +125,10 @@ PowerShell on Windows, `sh` elsewhere. It writes nothing.
 ## Where these files come from
 
 Both mods are developed inside the [herdr-app](https://github.com/herdrdev/herdr-app)
-repository, on the branches `feat/agent-restore-mod` and
-`feat/claude-sessions-mod`, where they live under `defaults/mods/` and are
-covered by the app's own test suite. This repository holds the published copy,
-taken from those branches at the commits below; it is refreshed when a mod
-changes.
-
-- `agent-restore/` — branch `feat/agent-restore-mod`, commit `6683be4`
-- `claude-sessions/` — branch `feat/claude-sessions-mod`, commit `f0fcac8`
+project — the app they plug into — where they live under `defaults/mods/` and
+are covered by that project's own test suite. This repository holds the
+published copy, refreshed when a mod changes. The copies published here were
+taken at `6683be4` (agent-restore) and `f0fcac8` (claude-sessions).
 
 ## Licence
 
